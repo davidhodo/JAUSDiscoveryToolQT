@@ -1,0 +1,6 @@
+VariantDir('Build', '.', duplicate=0)
+sources = ['Build/DiscoveryClientService.cpp', 'Build/DiscoveryClient_DiscoveryClientFSM.cpp', 'Build/DiscoveryClient_DiscoveryClientFSM_sm.cpp', 'Build/InternalEvents/GuiControlEntered.cpp', 'Build/Messages/QueryConfiguration.cpp', 'Build/Messages/QueryIdentification.cpp', 'Build/Messages/QueryServiceList.cpp', 'Build/Messages/QueryServices.cpp', 'Build/Messages/QuerySubsystemList.cpp', 'Build/Messages/ReportConfiguration.cpp', 'Build/Messages/ReportIdentification.cpp', 'Build/Messages/ReportServiceList.cpp', 'Build/Messages/ReportServices.cpp', 'Build/Messages/ReportSubsystemList.cpp']
+Import('env')
+lib = env.SharedLibrary('./lib/DiscoveryClientService', sources, LIBS=['Common'])
+env.Install( env['INSTALL_LIB'], lib )
+env.Install( env['BINPATH'], lib )
