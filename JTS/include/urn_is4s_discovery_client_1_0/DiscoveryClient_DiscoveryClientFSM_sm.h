@@ -40,10 +40,10 @@ namespace urn_is4s_discovery_client_1_0
         virtual void GuiControlEnteredTransition(DiscoveryClient_DiscoveryClientFSMContext& context, GuiControlEntered msg);
         virtual void ReportConfigurationTransition(DiscoveryClient_DiscoveryClientFSMContext& context);
         virtual void ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context);
-        virtual void ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg);
+        virtual void ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg, unsigned int sender);
         virtual void ReportServiceListTransition(DiscoveryClient_DiscoveryClientFSMContext& context);
         virtual void ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context);
-        virtual void ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg);
+        virtual void ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg, unsigned int sender);
         virtual void ReportSubsystemListTransition(DiscoveryClient_DiscoveryClientFSMContext& context);
 
     protected:
@@ -79,8 +79,8 @@ namespace urn_is4s_discovery_client_1_0
         {};
 
         void GuiControlEnteredTransition(DiscoveryClient_DiscoveryClientFSMContext& context, GuiControlEntered msg);
-        void ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg);
-        void ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg);
+        void ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg, unsigned int sender);
+        void ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg, unsigned int sender);
     };
 
     class DiscoveryClient_DiscoveryClientFSM_SM_Internally_Generated_State_DO_NOT_USE :
@@ -163,10 +163,10 @@ namespace urn_is4s_discovery_client_1_0
             setTransition(NULL);
         };
 
-        void ReportIdentificationTransition(ReportIdentification msg)
+        void ReportIdentificationTransition(ReportIdentification msg, unsigned int sender)
         {
             setTransition("ReportIdentificationTransition");
-            (getState()).ReportIdentificationTransition(*this, msg);
+            (getState()).ReportIdentificationTransition(*this, msg, sender);
             setTransition(NULL);
         };
 
@@ -184,10 +184,10 @@ namespace urn_is4s_discovery_client_1_0
             setTransition(NULL);
         };
 
-        void ReportServicesTransition(ReportServices msg)
+        void ReportServicesTransition(ReportServices msg, unsigned int sender)
         {
             setTransition("ReportServicesTransition");
-            (getState()).ReportServicesTransition(*this, msg);
+            (getState()).ReportServicesTransition(*this, msg, sender);
             setTransition(NULL);
         };
 

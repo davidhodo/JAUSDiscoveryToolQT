@@ -27,7 +27,7 @@ typedef JTS::Send_1_0 Send;
 namespace urn_is4s_discovery_client_1_0
 {
 
-//typedef boost::function<void(long, long, configitem::ConfigItem)> identCallback;
+typedef boost::function<void(ReportIdentification, unsigned int)> identCallback;
 
 
 class DllExport DiscoveryClient_DiscoveryClientFSM : public JTS::StateMachine
@@ -40,16 +40,17 @@ public:
     virtual void setupNotifications();
 
     /// Action Methods
-    virtual void addDiscoveryServerAction(ReportIdentification msg);
-    virtual void saveServicesAction(ReportServices msg);
+    virtual void addDiscoveryServerAction(ReportIdentification msg, unsigned int sender);
+    virtual void saveServicesAction(ReportServices msg, unsigned int sender);
     virtual void sendQueryMessageAction(GuiControlEntered msg);
 
 
     /// Guard Methods
 
-
-
     DiscoveryClient_DiscoveryClientFSMContext *context;
+
+    /// Callback setters
+    void setIdentCallback(identCallback cb){m_cbIdentification=cb;}
 
 protected:
 
@@ -57,6 +58,7 @@ protected:
 
     
     /// callbacks for receive methods
+    identCallback m_cbIdentification;
 
 
 };

@@ -1,8 +1,9 @@
 
 
 #include "urn_is4s_discovery_client_1_0/DiscoveryClientService.h"
-
+#include <iostream>
 using namespace JTS;
+using namespace std;
 
 namespace urn_is4s_discovery_client_1_0
 {
@@ -75,7 +76,12 @@ bool DiscoveryClientService::processTransitions(InternalEvent* ie)
 					{
 						ReportIdentification msg;
 						msg.decode(casted_ie->getBody()->getReceiveRec()->getMessagePayload()->getData());
-						pDiscoveryClient_DiscoveryClientFSM->context->ReportIdentificationTransition(msg);
+						// Unique identifier used to replace previous edits upon regeneration, do not delete this comment:3b3436f9-c46b-3259-8777-d16308ed9b6c
+                                                unsigned int sender =
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcSubsystemID() << 16) +
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcNodeID() << 8) +
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcComponentID());
+						pDiscoveryClient_DiscoveryClientFSM->context->ReportIdentificationTransition(msg, sender);
 						done = true;
 					}
 				}
@@ -91,7 +97,12 @@ bool DiscoveryClientService::processTransitions(InternalEvent* ie)
 					{
 						ReportServices msg;
 						msg.decode(casted_ie->getBody()->getReceiveRec()->getMessagePayload()->getData());
-						pDiscoveryClient_DiscoveryClientFSM->context->ReportServicesTransition(msg);
+						// Unique identifier used to replace previous edits upon regeneration, do not delete this comment:8ef023c2-315b-309a-a247-c9efd0755dfa
+                                                unsigned int sender =
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcSubsystemID() << 16) +
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcNodeID() << 8) +
+                                                        (casted_ie->getBody()->getReceiveRec()->getSrcComponentID());
+						pDiscoveryClient_DiscoveryClientFSM->context->ReportServicesTransition(msg, sender);
 						done = true;
 					}
 				}

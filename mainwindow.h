@@ -28,6 +28,7 @@ private:
     DiscoveryClient *discClient;
     JTS::InternalEventHandler *ieHandler;
 
+    void reportIdentCallback(ReportIdentification msg, unsigned int sender);
 };
 
 #endif // MAINWINDOW_H

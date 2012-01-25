@@ -29,7 +29,7 @@ public:
 	// FSMs are public so that children services can access them
 	DiscoveryClient_DiscoveryClientFSM* pDiscoveryClient_DiscoveryClientFSM;
 	
-
+        void setIdentCallback(identCallback cb){pDiscoveryClient_DiscoveryClientFSM->setIdentCallback(cb);}
 
 	
 protected:

@@ -14,14 +14,11 @@ DiscoveryClient::DiscoveryClient(unsigned int subsystem, unsigned short node, un
 	jausRouter = new JausRouter(JausAddress(subsystem, node, component), ieHandler);
 	
 	/// Instantiate services
-	DiscoveryClientService* pDiscoveryClientService = new DiscoveryClientService(jausRouter);
+        pDiscoveryClientService = new DiscoveryClientService(jausRouter);
 	
 	
 	/// Add all the Services for the Component
 	serviceList.push_back(pDiscoveryClientService);
-
-        cout << "In constructor: " << ieHandler << endl;
-	
 }
 
 DiscoveryClient::~DiscoveryClient()
@@ -93,8 +90,6 @@ void DiscoveryClient::processInternalEvent(InternalEvent *ie)
 void DiscoveryClient::queryIdentification()
 {
     JausAddress broadcastAdr(0xFFFF,0xFF,0xFF);
-    cout << "Address set to: " << hex << (unsigned int)broadcastAdr.getSubsystemID() << ":"
-         << (unsigned int)broadcastAdr.getNodeID() << ":" << (unsigned int)broadcastAdr.getComponentID() << endl;
     queryIdentification(broadcastAdr);
 }
 
@@ -102,11 +97,7 @@ void DiscoveryClient::queryIdentification(JausAddress dest)
 {
     GuiControlEntered *guiEvent = new GuiControlEntered;
     guiEvent->getGuiControlEnteredBody()->getGuiControlEnteredRecord()->setCommand( QUERYIDENTIFICATION );
-    cout << "Address received: " << hex << (unsigned int)dest.getSubsystemID() << ":"
-         << (unsigned int)dest.getNodeID() << ":" << (unsigned int)dest.getComponentID() << endl;
-    cout << dest.get() << endl;
     guiEvent->getGuiControlEnteredBody()->getGuiControlEnteredRecord()->setValue( dest.get() );
-    cout << guiEvent->getGuiControlEnteredBody()->getGuiControlEnteredRecord()->getValue() << endl;
     ieHandler->invoke(guiEvent);
 }
 
@@ -132,7 +123,6 @@ void DiscoveryClient::querySubsystemList(JausAddress dest) {
     ieHandler->invoke(guiEvent);
 
 }
-
 
 void DiscoveryClient::queryServicesList(JausAddress dest) {
     GuiControlEntered *guiEvent = new GuiControlEntered;

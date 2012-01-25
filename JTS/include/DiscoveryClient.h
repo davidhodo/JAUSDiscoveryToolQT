@@ -8,7 +8,8 @@
 #include "Transport/JausTransport.h"
 #include "InternalEvents/InternalEvent.h"
 #include "urn_is4s_discovery_client_1_0/DiscoveryClientService.h"
-
+#include "urn_is4s_discovery_client_1_0/DiscoveryClient_DiscoveryClientFSM_sm.h"
+using namespace urn_is4s_discovery_client_1_0;
 
 class DiscoveryClient : public JTS::EventReceiver
 {
@@ -29,11 +30,14 @@ public:
         void querySubsystemList(JausAddress dest);
         void queryServicesList(JausAddress dest);
 
+        void setIdentCallback(identCallback cb){pDiscoveryClientService->setIdentCallback(cb);}
+
 protected:
         virtual void processInternalEvent(JTS::InternalEvent* ie);
-	std::vector<JTS::Service*> serviceList;
+        std::vector<JTS::Service*> serviceList;
 	JTS::JausRouter* jausRouter;
 	
+        DiscoveryClientService* pDiscoveryClientService;
 };
 
 #endif // DISCOVERYCLIENT_H

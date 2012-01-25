@@ -36,13 +36,15 @@ void DiscoveryClient_DiscoveryClientFSM::setupNotifications()
 
 }
 
-void DiscoveryClient_DiscoveryClientFSM::addDiscoveryServerAction(ReportIdentification msg)
+void DiscoveryClient_DiscoveryClientFSM::addDiscoveryServerAction(ReportIdentification msg, unsigned int sender)
 {
     /// Insert User Code HERE
-    cout << "Received discovery server address: " << endl;
+    cout << "Received discovery server address: " << sender << endl;
+    // call callback method
+    m_cbIdentification(msg, sender);
 }
 
-void DiscoveryClient_DiscoveryClientFSM::saveServicesAction(ReportServices msg)
+void DiscoveryClient_DiscoveryClientFSM::saveServicesAction(ReportServices msg, unsigned int sender)
 {
     /// Insert User Code HERE
     cout << "Received list of services from discovery server." << endl;

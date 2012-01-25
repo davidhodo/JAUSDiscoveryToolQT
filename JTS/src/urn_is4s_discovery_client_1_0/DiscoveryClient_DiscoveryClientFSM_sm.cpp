@@ -41,7 +41,7 @@ namespace urn_is4s_discovery_client_1_0
         return;
     }
 
-    void DiscoveryClient_DiscoveryClientFSMState::ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg)
+    void DiscoveryClient_DiscoveryClientFSMState::ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg, unsigned int sender)
     {
         Default(context);
         return;
@@ -59,7 +59,7 @@ namespace urn_is4s_discovery_client_1_0
         return;
     }
 
-    void DiscoveryClient_DiscoveryClientFSMState::ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg)
+    void DiscoveryClient_DiscoveryClientFSMState::ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg, unsigned int sender)
     {
         Default(context);
         return;
@@ -134,7 +134,7 @@ namespace urn_is4s_discovery_client_1_0
         return;
     }
 
-    void DiscoveryClient_DiscoveryClientFSM_SM_Ready::ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg)
+    void DiscoveryClient_DiscoveryClientFSM_SM_Ready::ReportIdentificationTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportIdentification msg, unsigned int sender)
     {
         DiscoveryClient_DiscoveryClientFSM& ctxt(context.getOwner());
 
@@ -152,19 +152,19 @@ namespace urn_is4s_discovery_client_1_0
         {
             std::ostream& str = context.getDebugStream();
 
-            str << "ENTER TRANSITION: DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportIdentificationTransition(ReportIdentification msg)"
+            str << "ENTER TRANSITION: DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportIdentificationTransition(ReportIdentification msg, unsigned int sender)"
                 << std::endl;
         }
 
         context.clearState();
         try
         {
-            ctxt.addDiscoveryServerAction(msg);
+            ctxt.addDiscoveryServerAction(msg, sender);
             if (context.getDebugFlag() == true)
             {
                 std::ostream& str = context.getDebugStream();
 
-                str << "EXIT TRANSITION : DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportIdentificationTransition(ReportIdentification msg)"
+                str << "EXIT TRANSITION : DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportIdentificationTransition(ReportIdentification msg, unsigned int sender)"
                     << std::endl;
             }
 
@@ -179,7 +179,7 @@ namespace urn_is4s_discovery_client_1_0
         return;
     }
 
-    void DiscoveryClient_DiscoveryClientFSM_SM_Ready::ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg)
+    void DiscoveryClient_DiscoveryClientFSM_SM_Ready::ReportServicesTransition(DiscoveryClient_DiscoveryClientFSMContext& context, ReportServices msg, unsigned int sender)
     {
         DiscoveryClient_DiscoveryClientFSM& ctxt(context.getOwner());
 
@@ -197,19 +197,19 @@ namespace urn_is4s_discovery_client_1_0
         {
             std::ostream& str = context.getDebugStream();
 
-            str << "ENTER TRANSITION: DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportServicesTransition(ReportServices msg)"
+            str << "ENTER TRANSITION: DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportServicesTransition(ReportServices msg, unsigned int sender)"
                 << std::endl;
         }
 
         context.clearState();
         try
         {
-            ctxt.saveServicesAction(msg);
+            ctxt.saveServicesAction(msg, sender);
             if (context.getDebugFlag() == true)
             {
                 std::ostream& str = context.getDebugStream();
 
-                str << "EXIT TRANSITION : DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportServicesTransition(ReportServices msg)"
+                str << "EXIT TRANSITION : DiscoveryClient_DiscoveryClientFSM_SM::Ready::ReportServicesTransition(ReportServices msg, unsigned int sender)"
                     << std::endl;
             }
 

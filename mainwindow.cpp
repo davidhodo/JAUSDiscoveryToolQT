@@ -15,9 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Set up Discovery Service list
     ui->trwDiscoveryServices->setColumnCount(3);
     QStringList discHeaderLabels;
-    discHeaderLabels.append(QString("Subsys."));
-    discHeaderLabels.append(QString("Node"));
-    discHeaderLabels.append(QString("Comp."));
+    discHeaderLabels.append(QString("Name."));
+    discHeaderLabels.append(QString("Type"));
+    discHeaderLabels.append(QString("Address."));
     ui->trwDiscoveryServices->setHeaderLabels(discHeaderLabels);
 
     // Set up services list
@@ -32,12 +32,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // create new discovery component
     discClient = new DiscoveryClient(126,1,117);
     discClient->startComponent();
+    // get pointer to event handler for passing internal events
     ieHandler=discClient->getIEHandler();
-    cout << "Set ieHandler to: " << ieHandler << endl;
-    //QTreeWidgetItem *temp = new QTreeWidgetItem(ui->trwDiscoveryServices);
-    //temp->setText(0,"col1");
-    //temp->setText(1,"col2");
-    //temp->setText(2,"col3");
+
+    // set up callbacks to read data out of discovery client
+    discClient->setIdentCallback(boost::bind(&MainWindow::reportIdentCallback, this, _1, _2));
 }
 MainWindow::~MainWindow()
 {
@@ -56,4 +55,15 @@ void MainWindow::on_pbQueryIdent_clicked()
 void MainWindow::on_pbQueryServices_clicked()
 {
 
+}
+
+void MainWindow::reportIdentCallback(ReportIdentification msg, unsigned int sender)
+{
+    ui->trwDiscoveryServices->clear();
+
+    QTreeWidgetItem *temp = new QTreeWidgetItem(ui->trwDiscoveryServices);
+    temp->setText(0,QString(msg.getBody()->getReportIdentificationRec()->getIdentification().c_str()));
+    temp->setText(1,QString::number((msg.getBody()->getReportIdentificationRec()->getType())));
+    QString address=QString::number((sender>>16)&0xFFFF)+ ":" + QString::number((sender>>8)&0xFF) + ":" + QString::number(sender&0xFF);
+    temp->setText(2,address);
 }
